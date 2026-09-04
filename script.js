@@ -97,12 +97,12 @@ const materials = [
   },
   {
     id: 2,
-    title: "OPUS Pricing Simulation",
+    title: "Chorus Pricing Simulation",
     description: "Simulation guidelines and step-by-step deck for OPUS pricing tools.",
     category: "tool",
     type: "ppt",
     icon: "🏷️",
-    fileUrl: "files/Opus-Pricing.pdf"
+    fileUrl: "files/Chorus.pdf"
   },
   {
     id: 3,

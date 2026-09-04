@@ -13,6 +13,13 @@
 
 <body>
 
+  <!-- CUSTOM INTERACTIVE MOUSE CURSOR -->
+  <div class="custom-cursor-dot" id="cursorDot"></div>
+  <div class="custom-cursor-follower" id="cursorFollower"></div>
+
+  <!-- DYNAMIC BACKGROUND PARTICLES CANVAS -->
+  <canvas id="bgParticlesCanvas"></canvas>
+
   <!-- TOP NAVIGATION BAR -->
   <header class="navbar">
     <div class="nav-container">
@@ -37,9 +44,9 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="icon-btn" id="searchToggle" aria-label="Search">🔍</button>
+        <button class="icon-btn hover-magnetic" id="searchToggle" aria-label="Search">🔍</button>
         <div class="theme-switch-wrapper">
-          <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+          <button class="theme-toggle hover-magnetic" id="themeToggle" title="Toggle Light/Dark Mode">
             <span class="toggle-ball"></span>
           </button>
         </div>
@@ -56,7 +63,7 @@
   <main class="main-layout">
 
     <!-- HERO SECTION -->
-    <section id="home" class="hero-container">
+    <section id="home" class="hero-container reveal-on-scroll">
       <div class="hero-left">
         <p class="section-tag">WELCOME TO</p>
         <h1 class="hero-title">INTRA ASIA TRADE</h1>
@@ -65,13 +72,13 @@
         </p>
 
         <div class="hero-cta-buttons">
-          <a href="#resources" class="btn btn-primary">Explore Resources <span>→</span></a>
-          <a href="#contact" class="btn btn-secondary">Contact Us <span>✉</span></a>
+          <a href="#resources" class="btn btn-primary hover-magnetic">Explore Resources <span>→</span></a>
+          <a href="#contact" class="btn btn-secondary hover-magnetic">Contact Us <span>✉</span></a>
         </div>
 
         <!-- QUICK ACCESS CARDS -->
         <div class="quick-cards-grid">
-          <div class="quick-card hover-card" data-category="guide">
+          <div class="quick-card hover-card tilt-card" data-category="guide">
             <div class="qc-icon qc-blue">📘</div>
             <div class="qc-text">
               <h4>Guides</h4>
@@ -79,7 +86,7 @@
             </div>
           </div>
 
-          <div class="quick-card hover-card" data-category="template">
+          <div class="quick-card hover-card tilt-card" data-category="template">
             <div class="qc-icon qc-purple">📄</div>
             <div class="qc-text">
               <h4>Templates</h4>
@@ -87,7 +94,7 @@
             </div>
           </div>
 
-          <div class="quick-card hover-card" data-category="video">
+          <div class="quick-card hover-card tilt-card" data-category="video">
             <div class="qc-icon qc-green">🎥</div>
             <div class="qc-text">
               <h4>Videos</h4>
@@ -95,7 +102,7 @@
             </div>
           </div>
 
-          <div class="quick-card hover-card" data-category="tool">
+          <div class="quick-card hover-card tilt-card" data-category="tool">
             <div class="qc-icon qc-orange">🛠️</div>
             <div class="qc-text">
               <h4>Tools</h4>
@@ -109,20 +116,20 @@
       <div class="hero-right">
         <div class="map-bg"></div>
         <div class="vessel-container">
-          <img src="wide_clean_png_like_cutout_illustration_of_a_larg.png" alt="ONE Vessel Container Ship" class="vessel-cutout">
+          <img src="wide_clean_png_like_cutout_illustration_of_a_larg.png" alt="ONE Vessel Container Ship" class="vessel-cutout floating-vessel">
         </div>
       </div>
     </section>
 
     <!-- TEAM SECTION -->
-    <section id="team" class="section-block">
+    <section id="team" class="section-block reveal-on-scroll">
       <div class="text-center">
         <p class="section-tag">OUR TEAM</p>
         <h2 class="section-title">Stronger Together</h2>
       </div>
 
       <div class="team-cards-row">
-        <div class="team-card hover-card" data-team="east">
+        <div class="team-card hover-card tilt-card" data-team="east">
           <div class="badge-icon bg-blue">🚢</div>
           <h3>EAST</h3>
           <p>Driving growth across East Intra Asia markets.</p>
@@ -130,7 +137,7 @@
           <div class="card-line line-blue"></div>
         </div>
 
-        <div class="team-card hover-card" data-team="west">
+        <div class="team-card hover-card tilt-card" data-team="west">
           <div class="badge-icon bg-purple">⚓</div>
           <h3>WEST</h3>
           <p>Connecting opportunities across West Intra Asia.</p>
@@ -138,7 +145,7 @@
           <div class="card-line line-purple"></div>
         </div>
 
-        <div class="team-card hover-card" data-team="japan">
+        <div class="team-card hover-card tilt-card" data-team="japan">
           <div class="badge-icon bg-green">⛩️</div>
           <h3>JAPAN</h3>
           <p>Delivering excellence from and to Japan.</p>
@@ -146,7 +153,7 @@
           <div class="card-line line-green"></div>
         </div>
 
-        <div class="team-card hover-card" data-team="oc">
+        <div class="team-card hover-card tilt-card" data-team="oc">
           <div class="badge-icon bg-orange">🌏</div>
           <h3>OC</h3>
           <p>Supporting Oceania with reliable solutions.</p>
@@ -154,7 +161,7 @@
           <div class="card-line line-orange"></div>
         </div>
 
-        <div class="team-card hover-card" data-team="breakbulk">
+        <div class="team-card hover-card tilt-card" data-team="breakbulk">
           <div class="badge-icon bg-cyan">🏗️</div>
           <h3>BREAKBULK</h3>
           <p>Specialized solutions for breakbulk shipments.</p>
@@ -162,7 +169,7 @@
           <div class="card-line line-cyan"></div>
         </div>
 
-        <div class="team-card hover-card" data-team="giff">
+        <div class="team-card hover-card tilt-card" data-team="giff">
           <div class="badge-icon bg-pink">📦</div>
           <h3>GIFF</h3>
           <p>Global Intra Freight Forwarding & integrated trade operations.</p>
@@ -173,24 +180,24 @@
     </section>
 
     <!-- RESOURCES SECTION -->
-    <section id="resources" class="section-block">
+    <section id="resources" class="section-block reveal-on-scroll">
       <div class="text-center">
         <p class="section-tag">RESOURCES</p>
         <h2 class="section-title">Everything You Need</h2>
       </div>
 
       <div class="filter-pills">
-        <button class="pill active" data-category="all">All</button>
-        <button class="pill" data-category="guide">📘 Guides</button>
-        <button class="pill" data-category="template">📄 Templates</button>
-        <button class="pill" data-category="tool">🛠️ Tools</button>
+        <button class="pill hover-magnetic active" data-category="all">All</button>
+        <button class="pill hover-magnetic" data-category="guide">📘 Guides</button>
+        <button class="pill hover-magnetic" data-category="template">📄 Templates</button>
+        <button class="pill hover-magnetic" data-category="tool">🛠️ Tools</button>
       </div>
 
       <div class="materials-grid" id="materialsGrid"></div>
     </section>
 
     <!-- ARCADE CENTER / MULTI-GAME SECTION -->
-    <section id="game" class="section-block">
+    <section id="game" class="section-block reveal-on-scroll">
       <div class="text-center">
         <p class="section-tag">INTERACTIVE EXERCISE</p>
         <h2 class="section-title">Trade Arcade Center 🎮</h2>
@@ -198,12 +205,12 @@
 
       <!-- GAME SELECTOR TABS -->
       <div class="game-selector-tabs">
-        <button class="game-tab active" data-game="quiz">📝 Resource Quiz</button>
-        <button class="game-tab" data-game="polpod">⚓ Guess POL / POD</button>
-        <button class="game-tab" data-game="puzzle">🧩 Acronym Matcher</button>
+        <button class="game-tab hover-magnetic active" data-game="quiz">📝 Resource Quiz</button>
+        <button class="game-tab hover-magnetic" data-game="polpod">⚓ Guess POL / POD</button>
+        <button class="game-tab hover-magnetic" data-game="puzzle">🧩 Acronym Matcher</button>
       </div>
 
-      <div class="game-container hover-card">
+      <div class="game-container hover-card tilt-card">
         
         <!-- GAME 1: RESOURCE QUIZ -->
         <div id="quizGame" class="game-view">
@@ -220,7 +227,7 @@
           <div id="quizResult" class="quiz-result" style="display: none;">
             <h2>Challenge Completed! 🎉</h2>
             <p id="quizFinalScore">You scored 0 out of 6</p>
-            <button class="btn btn-primary" onclick="restartQuiz()">Play Again 🔄</button>
+            <button class="btn btn-primary hover-magnetic" onclick="restartQuiz()">Play Again 🔄</button>
           </div>
         </div>
 
@@ -240,7 +247,7 @@
           <div id="polResult" class="quiz-result" style="display: none;">
             <h2>Port Challenge Completed! ⚓</h2>
             <p id="polFinalScore">You scored 0 out of 5</p>
-            <button class="btn btn-primary" onclick="restartPolGame()">Play Again 🔄</button>
+            <button class="btn btn-primary hover-magnetic" onclick="restartPolGame()">Play Again 🔄</button>
           </div>
         </div>
 
@@ -260,7 +267,7 @@
           <div id="puzResult" class="quiz-result" style="display: none;">
             <h2>Term Matcher Completed! 🧩</h2>
             <p id="puzFinalScore">You scored 0 out of 5</p>
-            <button class="btn btn-primary" onclick="restartPuzzleGame()">Play Again 🔄</button>
+            <button class="btn btn-primary hover-magnetic" onclick="restartPuzzleGame()">Play Again 🔄</button>
           </div>
         </div>
 
@@ -313,7 +320,7 @@
     <div class="sub-footer">
       <p>© 2026 Ocean Network Express Pte. Ltd. All rights reserved.</p>
       <p>One Team. One Network. <strong class="pink-text">ONE</strong> Goal.</p>
-      <button class="back-to-top" id="scrollTopBtn" title="Scroll to Top">↑</button>
+      <button class="back-to-top hover-magnetic" id="scrollTopBtn" title="Scroll to Top">↑</button>
     </div>
   </footer>
 

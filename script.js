@@ -1,167 +1,5 @@
 // =========================================================
-// 1. CUSTOM MOUSE CURSOR & INTERACTION FIXES
-// =========================================================
-const cursorDot = document.getElementById('cursorDot');
-const cursorFollower = document.getElementById('cursorFollower');
-
-let mouseX = 0, mouseY = 0;
-let followerX = 0, followerY = 0;
-
-window.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  if (cursorDot) {
-    cursorDot.style.left = `${mouseX}px`;
-    cursorDot.style.top = `${mouseY}px`;
-  }
-});
-
-function animateCursor() {
-  followerX += (mouseX - followerX) * 0.15;
-  followerY += (mouseY - followerY) * 0.15;
-  if (cursorFollower) {
-    cursorFollower.style.left = `${followerX}px`;
-    cursorFollower.style.top = `${followerY}px`;
-  }
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-// CURSOR HOVER ENHANCEMENT FOR INTERACTIVE ELEMENTS
-function attachCursorEvents() {
-  const interactiveElements = document.querySelectorAll('a, button, .tilt-card, .quick-card, .team-card, .quiz-option-btn');
-  interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => cursorFollower?.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => cursorFollower?.classList.remove('cursor-hover'));
-  });
-}
-attachCursorEvents();
-
-// MAGNETIC PULL EFFECT FOR BUTTONS
-document.querySelectorAll('.hover-magnetic').forEach(btn => {
-  btn.addEventListener('mousemove', (e) => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
-  });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = 'translate(0px, 0px)';
-  });
-});
-
-// 3D CARD TILT MICRO-INTERACTION
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 12;
-    const rotateY = (centerX - x) / 12;
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-  });
-
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-  });
-});
-
-// ACTIVE NAVIGATION LINK TRACKER ON SCROLL
-window.addEventListener('scroll', () => {
-  let currentSection = '';
-  const sections = document.querySelectorAll('section, footer');
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 150) {
-      currentSection = section.getAttribute('id');
-    }
-  });
-
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.classList.remove('active');
-    if (item.getAttribute('href') === `#${currentSection}`) {
-      item.classList.add('active');
-    }
-  });
-});
-
-// =========================================================
-// 2. DYNAMIC CANVAS BACKGROUND PARTICLES
-// =========================================================
-const canvas = document.getElementById('bgParticlesCanvas');
-if (canvas) {
-  const ctx = canvas.getContext('2d');
-  let particlesArray = [];
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2 + 1;
-      this.speedX = (Math.random() - 0.5) * 0.6;
-      this.speedY = (Math.random() - 0.5) * 0.6;
-      this.color = Math.random() > 0.5 ? '#e6007e' : '#2d7df6';
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  function initParticles() {
-    particlesArray = [];
-    const count = Math.floor((canvas.width * canvas.height) / 18000);
-    for (let i = 0; i < count; i++) {
-      particlesArray.push(new Particle());
-    }
-  }
-  initParticles();
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => {
-      p.update();
-      p.draw();
-    });
-    requestAnimationFrame(animateParticles);
-  }
-  animateParticles();
-}
-
-// =========================================================
-// 3. SCROLL REVEAL INTERSECTION OBSERVER
-// =========================================================
-const observerOptions = { threshold: 0.15 };
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
-
-// =========================================================
-// TEAM ORGANIZATIONAL STRUCTURE DATA
+// TEAM ORGANIZATIONAL STRUCTURE DATA (UNCHANGED)
 // =========================================================
 const teamOrgData = {
   east: {
@@ -245,23 +83,120 @@ const teamOrgData = {
 };
 
 // =========================================================
-// RESOURCES DATA
+// RESOURCES DATA (UNCHANGED)
 // =========================================================
 const materials = [
-  { id: 1, title: "Shipping Information", description: "Overview of port operations, vessel scheduling, and cargo handling procedures.", category: "guide", type: "ppt", icon: "🏗️", fileUrl: "files/Shipping.pdf" },
-  { id: 2, title: "Chorus Pricing Simulation", description: "Simulation guidelines and step-by-step deck for OPUS pricing tools.", category: "tool", type: "ppt", icon: "🏷️", fileUrl: "files/Chorus.pdf" },
-  { id: 3, title: "ONE Quote Pricing Part", description: "Reference material for digital instant quotes and rate engine configurations.", category: "guide", type: "ppt", icon: "📦", fileUrl: "files/Oneqoute.pdf" },
-  { id: 4, title: "Pricing Five Factors", description: "Key analytical factors influencing pricing strategy and yield evaluation.", category: "guide", type: "ppt", icon: "🧠", fileUrl: "files/Five-Factors.pdf" },
-  { id: 5, title: "Freetime and Waiver Request", description: "SOPs, rules, and approval workflow for freetime adjustments and demurrage waivers.", category: "guide", type: "ppt", icon: "⏰", fileUrl: "files/Freetime-Waiver.pdf" },
-  { id: 6, title: "COD, ROB, and Re-Export Rates", description: "Standard rate structures for Change of Destination, Restow, and Re-Export handling.", category: "guide", type: "ppt", icon: "🔄", fileUrl: "files/Cod-Rob.pdf" },
-  { id: 7, title: "TIGER System Guide (Pricing Part)", description: "User manual for TIGER pricing interface, rate entries, and approvals.", category: "tool", type: "ppt", icon: "🐯", fileUrl: "files/Tiger-System.pdf" },
-  { id: 8, title: "FOB Request and Incoterms", description: "Guidelines for FOB cost allocation, trade liability, and Incoterm rules.", category: "guide", type: "ppt", icon: "🚢", fileUrl: "files/Incoterms.pdf" },
-  { id: 9, title: "Pricing Initiatives", description: "Strategic projects, rate optimization plans, and yield growth targets.", category: "guide", type: "ppt", icon: "🏷️", fileUrl: "files/Pricing-Initiative.pdf" },
-  { id: 10, title: "Pricing Decision", description: "Framework, threshold authority, and delegation matrix for rate approvals.", category: "guide", type: "ppt", icon: "🔀", fileUrl: "files/Pricing-Decision.pdf" },
-  { id: 11, title: "SOP per Trade", description: "Standard operating procedures customized per Intra Asia trade region.", category: "guide", type: "ppt", icon: "⚙️", fileUrl: "files/sop-per-trade.pdf" },
-  { id: 12, title: "Tender Process", description: "End-to-end tender lifecycle, bid templates, and submission SOPs.", category: "template", type: "ppt", icon: "📄", fileUrl: "files/Tender-Process.pdf" }
+  {
+    id: 1,
+    title: "Shipping Information",
+    description: "Overview of port operations, vessel scheduling, and cargo handling procedures.",
+    category: "guide",
+    type: "ppt",
+    icon: "🏗️",
+    fileUrl: "files/Shipping.pdf"
+  },
+  {
+    id: 2,
+    title: "Chorus Pricing Simulation",
+    description: "Simulation guidelines and step-by-step deck for OPUS pricing tools.",
+    category: "tool",
+    type: "ppt",
+    icon: "🏷️",
+    fileUrl: "files/Chorus.pdf"
+  },
+  {
+    id: 3,
+    title: "ONE Quote Pricing Part",
+    description: "Reference material for digital instant quotes and rate engine configurations.",
+    category: "guide",
+    type: "ppt",
+    icon: "📦",
+    fileUrl: "files/Oneqoute.pdf"
+  },
+  {
+    id: 4,
+    title: "Pricing Five Factors",
+    description: "Key analytical factors influencing pricing strategy and yield evaluation.",
+    category: "guide",
+    type: "ppt",
+    icon: "🧠",
+    fileUrl: "files/Five-Factors.pdf"
+  },
+  {
+    id: 5,
+    title: "Freetime and Waiver Request",
+    description: "SOPs, rules, and approval workflow for freetime adjustments and demurrage waivers.",
+    category: "guide",
+    type: "ppt",
+    icon: "⏰",
+    fileUrl: "files/Freetime-Waiver.pdf"
+  },
+  {
+    id: 6,
+    title: "COD, ROB, and Re-Export Rates",
+    description: "Standard rate structures for Change of Destination, Restow, and Re-Export handling.",
+    category: "guide",
+    type: "ppt",
+    icon: "🔄",
+    fileUrl: "files/Cod-Rob.pdf"
+  },
+  {
+    id: 7,
+    title: "TIGER System Guide (Pricing Part)",
+    description: "User manual for TIGER pricing interface, rate entries, and approvals.",
+    category: "tool",
+    type: "ppt",
+    icon: "🐯",
+    fileUrl: "files/Tiger-System.pdf"
+  },
+  {
+    id: 8,
+    title: "FOB Request and Incoterms",
+    description: "Guidelines for FOB cost allocation, trade liability, and Incoterm rules.",
+    category: "guide",
+    type: "ppt",
+    icon: "🚢",
+    fileUrl: "files/Incoterms.pdf"
+  },
+  {
+    id: 9,
+    title: "Pricing Initiatives",
+    description: "Strategic projects, rate optimization plans, and yield growth targets.",
+    category: "guide",
+    type: "ppt",
+    icon: "🏷️",
+    fileUrl: "files/Pricing-Initiative.pdf"
+  },
+  {
+    id: 10,
+    title: "Pricing Decision",
+    description: "Framework, threshold authority, and delegation matrix for rate approvals.",
+    category: "guide",
+    type: "ppt",
+    icon: "🔀",
+    fileUrl: "files/Pricing-Decision.pdf"
+  },
+  {
+    id: 11,
+    title: "SOP per Trade",
+    description: "Standard operating procedures customized per Intra Asia trade region.",
+    category: "guide",
+    type: "ppt",
+    icon: "⚙️",
+    fileUrl: "files/sop-per-trade.pdf"
+  },
+  {
+    id: 12,
+    title: "Tender Process",
+    description: "End-to-end tender lifecycle, bid templates, and submission SOPs.",
+    category: "template",
+    type: "ppt",
+    icon: "📄",
+    fileUrl: "files/Tender-Process.pdf"
+  }
 ];
 
+// Helper function to shuffle choices randomly
 function shuffleArray(array) {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -364,28 +299,29 @@ const puzzleData = rawPuzzleData.map(item => {
   return { term: item.term, options: opts, answer: opts.indexOf(item.correct), exp: item.exp };
 });
 
-// DOM ELEMENTS & EVENT CONTROLS
+// DOM ELEMENTS
 const materialsGrid = document.getElementById("materialsGrid");
 const searchToggle = document.getElementById("searchToggle");
 const searchBarOverlay = document.getElementById("searchBarOverlay");
 const searchInput = document.getElementById("searchInput");
 const themeToggle = document.getElementById("themeToggle");
 const scrollTopBtn = document.getElementById("scrollTopBtn");
+
 const resourceModal = document.getElementById("resourceModal");
 const modalBody = document.getElementById("modalBody");
 const closeModal = document.getElementById("closeModal");
 
 let activeCategory = "all";
 
-// CONFETTI EFFECT (FIXED BINDING)
+// CONFETTI EFFECT
 function triggerConfetti() {
   if (typeof confetti === "function") {
-    confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0.2, y: 0.6 } });
-    confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 0.8, y: 0.6 } });
+    confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0.2, y: 0.6 } });
+    confetti({ particleCount: 40, angle: 120, spread: 55, origin: { x: 0.8, y: 0.6 } });
   }
 }
 
-// TEAM ORG MODAL TRIGGER
+// TEAM ORG MODAL LISTENER
 document.querySelectorAll(".team-card").forEach(card => {
   card.addEventListener("click", () => {
     const teamKey = card.dataset.team;
@@ -429,7 +365,7 @@ function renderMaterials() {
 
   filtered.forEach(item => {
     const card = document.createElement("div");
-    card.className = "resource-card hover-card tilt-card";
+    card.className = "resource-card hover-card";
     card.onclick = () => openResourceModal(item);
     card.innerHTML = `
       <div style="font-size:26px; margin-bottom:8px;">${item.icon || '📄'}</div>
@@ -443,6 +379,7 @@ function renderMaterials() {
   });
 }
 
+// OPEN RESOURCE MODAL (UPDATED TO BE LARGER & READABLE)
 function openResourceModal(item) {
   const pdfViewerUrl = `${item.fileUrl}#toolbar=1&navpanes=0&view=FitH`;
 
@@ -453,7 +390,7 @@ function openResourceModal(item) {
       <iframe src="${pdfViewerUrl}" width="100%" height="100%" style="border:none; border-radius:8px;"></iframe>
     </div>
     <div style="margin-top: 15px; text-align: right;">
-      <a href="${item.fileUrl}" target="_blank" class="btn btn-primary hover-magnetic" style="display:inline-block; font-size:13px; padding:10px 18px;">
+      <a href="${item.fileUrl}" target="_blank" class="btn btn-primary" style="display:inline-block; font-size:13px; padding:10px 18px;">
         Open Full Presentation ↗
       </a>
     </div>
@@ -461,40 +398,38 @@ function openResourceModal(item) {
   resourceModal.classList.add("active");
 }
 
-// ARCADE CENTER GAME CONTROLLERS WITH TAB SWITCHING
-function switchGameTab(gameType) {
-  document.querySelectorAll(".game-tab").forEach(t => t.classList.remove("active"));
-  document.querySelectorAll(".game-view").forEach(v => v.style.display = "none");
+// =========================================================
+// ARCADE CENTER GAME CONTROLLERS
+// =========================================================
 
-  const targetTab = document.querySelector(`.game-tab[data-game="${gameType}"]`);
-  if (targetTab) targetTab.classList.add("active");
-
-  if (gameType === "quiz") {
-    document.getElementById("quizGame").style.display = "block";
-    restartQuiz();
-  } else if (gameType === "polpod") {
-    document.getElementById("polpodGame").style.display = "block";
-    restartPolGame();
-  } else if (gameType === "puzzle") {
-    document.getElementById("puzzleGame").style.display = "block";
-    restartPuzzleGame();
-  }
-}
-
+// GAME TAB SWITCHER
 document.querySelectorAll(".game-tab").forEach(tab => {
   tab.addEventListener("click", () => {
-    switchGameTab(tab.dataset.game);
+    document.querySelectorAll(".game-tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".game-view").forEach(v => v.style.display = "none");
+
+    tab.classList.add("active");
+    const gameType = tab.dataset.game;
+
+    if (gameType === "quiz") {
+      document.getElementById("quizGame").style.display = "block";
+    } else if (gameType === "polpod") {
+      document.getElementById("polpodGame").style.display = "block";
+      loadPolQuestion();
+    } else if (gameType === "puzzle") {
+      document.getElementById("puzzleGame").style.display = "block";
+      loadPuzzleQuestion();
+    }
   });
 });
 
-// --- GAME 1: RESOURCE QUIZ (20 QUESTIONS & AUTO-NEXT PROGRESS) ---
+// --- ENGINE GAME 1: RESOURCE QUIZ (20 QUESTIONS) ---
 let currentQuizIdx = 0, quizScore = 0, canAnswerQuiz = true;
 
 function loadQuizQuestion() {
   canAnswerQuiz = true;
   const item = quizData[currentQuizIdx];
-  if (!item) return;
-  document.getElementById("quizQuestionCount").innerText = `Module ${currentQuizIdx + 1} of ${quizData.length}: ${item.resource}`;
+  document.getElementById("quizQuestionCount").innerText = `Question ${currentQuizIdx + 1} of ${quizData.length}: ${item.resource}`;
   document.getElementById("quizScore").innerText = `Score: ${quizScore}`;
   document.getElementById("quizQuestionText").innerText = item.question;
   document.getElementById("quizFeedback").innerText = "";
@@ -524,16 +459,12 @@ function loadQuizQuestion() {
         else {
           document.getElementById("quizContent").style.display = "none";
           document.getElementById("quizResult").style.display = "block";
-          document.getElementById("quizFinalScore").innerHTML = `
-            You scored <strong>${quizScore} out of ${quizData.length}</strong>! 🎉<br><br>
-            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('polpod')">Proceed to Guess POL / POD →</button>
-          `;
+          document.getElementById("quizFinalScore").innerText = `You scored ${quizScore} out of ${quizData.length}!`;
         }
-      }, 1500);
+      }, 2000);
     };
     container.appendChild(btn);
   });
-  attachCursorEvents();
 }
 
 function restartQuiz() {
@@ -543,13 +474,12 @@ function restartQuiz() {
   loadQuizQuestion();
 }
 
-// --- GAME 2: GUESS POL / POD (20 QUESTIONS & AUTO-NEXT PROGRESS) ---
+// --- ENGINE GAME 2: GUESS POL / POD (20 QUESTIONS) ---
 let polIdx = 0, polScore = 0, canAnswerPol = true;
 
 function loadPolQuestion() {
   canAnswerPol = true;
   const item = polData[polIdx];
-  if (!item) return;
   document.getElementById("polQuestionCount").innerText = `Port ${polIdx + 1} of ${polData.length}`;
   document.getElementById("polScore").innerText = `Score: ${polScore}`;
   document.getElementById("polQuestionText").innerText = item.prompt;
@@ -580,16 +510,12 @@ function loadPolQuestion() {
         else {
           document.getElementById("polContent").style.display = "none";
           document.getElementById("polResult").style.display = "block";
-          document.getElementById("polFinalScore").innerHTML = `
-            You scored <strong>${polScore} out of ${polData.length}</strong>! ⚓<br><br>
-            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('puzzle')">Proceed to Acronym Matcher →</button>
-          `;
+          document.getElementById("polFinalScore").innerText = `You scored ${polScore} out of ${polData.length}!`;
         }
-      }, 1500);
+      }, 2000);
     };
     container.appendChild(btn);
   });
-  attachCursorEvents();
 }
 
 function restartPolGame() {
@@ -599,13 +525,12 @@ function restartPolGame() {
   loadPolQuestion();
 }
 
-// --- GAME 3: ACRONYM MATCHER (20 QUESTIONS) ---
+// --- ENGINE GAME 3: ACRONYM MATCHER (20 QUESTIONS) ---
 let puzIdx = 0, puzScore = 0, canAnswerPuz = true;
 
 function loadPuzzleQuestion() {
   canAnswerPuz = true;
   const item = puzzleData[puzIdx];
-  if (!item) return;
   document.getElementById("puzQuestionCount").innerText = `Term ${puzIdx + 1} of ${puzzleData.length}`;
   document.getElementById("puzScore").innerText = `Score: ${puzScore}`;
   document.getElementById("puzQuestionText").innerText = item.term;
@@ -636,16 +561,12 @@ function loadPuzzleQuestion() {
         else {
           document.getElementById("puzContent").style.display = "none";
           document.getElementById("puzResult").style.display = "block";
-          document.getElementById("puzFinalScore").innerHTML = `
-            You scored <strong>${puzScore} out of ${puzzleData.length}</strong>! 🧩<br><br>
-            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('quiz')">Restart Arcade Series 🔄</button>
-          `;
+          document.getElementById("puzFinalScore").innerText = `You scored ${puzScore} out of ${puzzleData.length}!`;
         }
-      }, 1500);
+      }, 2000);
     };
     container.appendChild(btn);
   });
-  attachCursorEvents();
 }
 
 function restartPuzzleGame() {
@@ -655,6 +576,7 @@ function restartPuzzleGame() {
   loadPuzzleQuestion();
 }
 
+// INITIALIZATION & EVENT CONTROLS
 if (closeModal) closeModal.addEventListener("click", () => resourceModal.classList.remove("active"));
 window.addEventListener("click", (e) => { if (e.target === resourceModal) resourceModal.classList.remove("active"); });
 

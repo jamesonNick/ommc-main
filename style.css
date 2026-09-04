@@ -3,9 +3,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  cursor: none; /* Hide default system cursor for custom cursor effect */
+  cursor: none; /* Custom interactive cursor */
 }
 
+/* SMOOTH SCROLLING FOR HOME, ABOUT, TEAM, ETC. */
 html {
   scroll-behavior: smooth;
 }
@@ -48,9 +49,7 @@ body {
   position: relative;
 }
 
-/* =========================================================
-   CUSTOM MOUSE CURSOR ANTIMATION
-   ========================================================= */
+/* CUSTOM MOUSE CURSOR */
 .custom-cursor-dot {
   width: 8px;
   height: 8px;
@@ -125,6 +124,7 @@ body {
 .nav-item { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.25s ease, transform 0.25s ease; position: relative; }
 .nav-item:hover, .nav-item.active { color: var(--primary-blue); transform: translateY(-2px); }
 
+/* UNDERLINE ANIMATION ON HOVER/ACTIVE */
 .nav-item::after {
   content: '';
   position: absolute;
@@ -178,7 +178,7 @@ body.light-theme .toggle-ball { transform: translateX(22px); }
 .qc-text h4 { font-size: 12px; }
 .qc-text span { font-size: 10px; color: var(--text-muted); }
 
-/* HERO RIGHT VISUAL & FLOATING VESSEL ANIMATION */
+/* HERO RIGHT VISUAL & FLOATING VESSEL */
 .hero-right { position: relative; display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
 .map-bg { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 60% 50%, rgba(45,125,246,0.25) 0%, transparent 70%); z-index: 1; }
 .vessel-container { position: relative; z-index: 2; width: 100%; display: flex; justify-content: center; align-items: center; background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
@@ -193,7 +193,7 @@ body.light-theme .toggle-ball { transform: translateX(22px); }
   100% { transform: translateY(-10px) rotate(1deg); }
 }
 
-/* 3D TILT HOVER CARD EFFECT */
+/* 3D TILT HOVER EFFECT */
 .tilt-card {
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.2s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.2s ease;
   transform-style: preserve-3d;

@@ -1,5 +1,5 @@
 // =========================================================
-// 1. CUSTOM MOUSE CURSOR & MAGNETIC MICRO-INTERACTIONS
+// 1. CUSTOM MOUSE CURSOR & INTERACTION FIXES
 // =========================================================
 const cursorDot = document.getElementById('cursorDot');
 const cursorFollower = document.getElementById('cursorFollower');
@@ -28,11 +28,14 @@ function animateCursor() {
 animateCursor();
 
 // CURSOR HOVER ENHANCEMENT FOR INTERACTIVE ELEMENTS
-const interactiveElements = document.querySelectorAll('a, button, .tilt-card, .quick-card, .team-card');
-interactiveElements.forEach(el => {
-  el.addEventListener('mouseenter', () => cursorFollower?.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => cursorFollower?.classList.remove('cursor-hover'));
-});
+function attachCursorEvents() {
+  const interactiveElements = document.querySelectorAll('a, button, .tilt-card, .quick-card, .team-card, .quiz-option-btn');
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => cursorFollower?.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => cursorFollower?.classList.remove('cursor-hover'));
+  });
+}
+attachCursorEvents();
 
 // MAGNETIC PULL EFFECT FOR BUTTONS
 document.querySelectorAll('.hover-magnetic').forEach(btn => {
@@ -269,7 +272,7 @@ function shuffleArray(array) {
 }
 
 // =========================================================
-// GAME 1 DATA: RESOURCE QUIZ (FULL 20 QUESTIONS RESTORED)
+// GAME 1 DATA: RESOURCE QUIZ (20 QUESTIONS)
 // =========================================================
 const rawQuizData = [
   { resource: "Shipping Information", question: "Which operational domain is primarily covered under the 'Shipping Information' guide?", correct: "Vessel scheduling & cargo handling", incorrect: ["Annual tender submissions", "Freetime fee calculations", "Excel Macro building"], explanation: "Shipping Information focuses on vessel schedules, berth planning, and cargo handling SOPs." },
@@ -300,7 +303,7 @@ const quizData = rawQuizData.map(q => {
 });
 
 // =========================================================
-// GAME 2 DATA: GUESS THE POL / POD (FULL 20 QUESTIONS RESTORED)
+// GAME 2 DATA: GUESS THE POL / POD (20 QUESTIONS)
 // =========================================================
 const rawPolData = [
   { prompt: "SGPSS (Singapore Port)", correct: "Singapore", incorrect: ["Malaysia", "Vietnam", "Thailand"], exp: "SGPSS is UN/LOCODE for Singapore Terminal Port." },
@@ -331,7 +334,7 @@ const polData = rawPolData.map(item => {
 });
 
 // =========================================================
-// GAME 3 DATA: SHIPPING ACRONYM MATCHER (FULL 20 QUESTIONS RESTORED)
+// GAME 3 DATA: SHIPPING ACRONYM MATCHER (20 QUESTIONS)
 // =========================================================
 const rawPuzzleData = [
   { term: "TEU", correct: "Twenty-foot Equivalent Unit", incorrect: ["Total Export Utilization", "Terminal Engine Unit", "Trade Entry Umbrella"], exp: "TEU is standard measure for container capacity." },
@@ -374,10 +377,11 @@ const closeModal = document.getElementById("closeModal");
 
 let activeCategory = "all";
 
+// CONFETTI EFFECT (FIXED BINDING)
 function triggerConfetti() {
   if (typeof confetti === "function") {
-    confetti({ particleCount: 40, angle: 60, spread: 55, origin: { x: 0.2, y: 0.6 } });
-    confetti({ particleCount: 40, angle: 120, spread: 55, origin: { x: 0.8, y: 0.6 } });
+    confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0.2, y: 0.6 } });
+    confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 0.8, y: 0.6 } });
   }
 }
 
@@ -457,27 +461,33 @@ function openResourceModal(item) {
   resourceModal.classList.add("active");
 }
 
-// ARCADE CENTER TABS
+// ARCADE CENTER GAME CONTROLLERS WITH TAB SWITCHING
+function switchGameTab(gameType) {
+  document.querySelectorAll(".game-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".game-view").forEach(v => v.style.display = "none");
+
+  const targetTab = document.querySelector(`.game-tab[data-game="${gameType}"]`);
+  if (targetTab) targetTab.classList.add("active");
+
+  if (gameType === "quiz") {
+    document.getElementById("quizGame").style.display = "block";
+    restartQuiz();
+  } else if (gameType === "polpod") {
+    document.getElementById("polpodGame").style.display = "block";
+    restartPolGame();
+  } else if (gameType === "puzzle") {
+    document.getElementById("puzzleGame").style.display = "block";
+    restartPuzzleGame();
+  }
+}
+
 document.querySelectorAll(".game-tab").forEach(tab => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".game-tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".game-view").forEach(v => v.style.display = "none");
-
-    tab.classList.add("active");
-    const gameType = tab.dataset.game;
-
-    if (gameType === "quiz") {
-      document.getElementById("quizGame").style.display = "block";
-    } else if (gameType === "polpod") {
-      document.getElementById("polpodGame").style.display = "block";
-      loadPolQuestion();
-    } else if (gameType === "puzzle") {
-      document.getElementById("puzzleGame").style.display = "block";
-      loadPuzzleQuestion();
-    }
+    switchGameTab(tab.dataset.game);
   });
 });
 
+// --- GAME 1: RESOURCE QUIZ (20 QUESTIONS & AUTO-NEXT PROGRESS) ---
 let currentQuizIdx = 0, quizScore = 0, canAnswerQuiz = true;
 
 function loadQuizQuestion() {
@@ -514,12 +524,16 @@ function loadQuizQuestion() {
         else {
           document.getElementById("quizContent").style.display = "none";
           document.getElementById("quizResult").style.display = "block";
-          document.getElementById("quizFinalScore").innerText = `You scored ${quizScore} out of ${quizData.length}!`;
+          document.getElementById("quizFinalScore").innerHTML = `
+            You scored <strong>${quizScore} out of ${quizData.length}</strong>! 🎉<br><br>
+            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('polpod')">Proceed to Guess POL / POD →</button>
+          `;
         }
-      }, 2000);
+      }, 1500);
     };
     container.appendChild(btn);
   });
+  attachCursorEvents();
 }
 
 function restartQuiz() {
@@ -529,6 +543,7 @@ function restartQuiz() {
   loadQuizQuestion();
 }
 
+// --- GAME 2: GUESS POL / POD (20 QUESTIONS & AUTO-NEXT PROGRESS) ---
 let polIdx = 0, polScore = 0, canAnswerPol = true;
 
 function loadPolQuestion() {
@@ -565,12 +580,16 @@ function loadPolQuestion() {
         else {
           document.getElementById("polContent").style.display = "none";
           document.getElementById("polResult").style.display = "block";
-          document.getElementById("polFinalScore").innerText = `You scored ${polScore} out of ${polData.length}!`;
+          document.getElementById("polFinalScore").innerHTML = `
+            You scored <strong>${polScore} out of ${polData.length}</strong>! ⚓<br><br>
+            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('puzzle')">Proceed to Acronym Matcher →</button>
+          `;
         }
-      }, 2000);
+      }, 1500);
     };
     container.appendChild(btn);
   });
+  attachCursorEvents();
 }
 
 function restartPolGame() {
@@ -580,6 +599,7 @@ function restartPolGame() {
   loadPolQuestion();
 }
 
+// --- GAME 3: ACRONYM MATCHER (20 QUESTIONS) ---
 let puzIdx = 0, puzScore = 0, canAnswerPuz = true;
 
 function loadPuzzleQuestion() {
@@ -616,12 +636,16 @@ function loadPuzzleQuestion() {
         else {
           document.getElementById("puzContent").style.display = "none";
           document.getElementById("puzResult").style.display = "block";
-          document.getElementById("puzFinalScore").innerText = `You scored ${puzScore} out of ${puzzleData.length}!`;
+          document.getElementById("puzFinalScore").innerHTML = `
+            You scored <strong>${puzScore} out of ${puzzleData.length}</strong>! 🧩<br><br>
+            <button class="btn btn-primary hover-magnetic" onclick="switchGameTab('quiz')">Restart Arcade Series 🔄</button>
+          `;
         }
-      }, 2000);
+      }, 1500);
     };
     container.appendChild(btn);
   });
+  attachCursorEvents();
 }
 
 function restartPuzzleGame() {
@@ -667,6 +691,6 @@ if (themeToggle) {
 setTheme(localStorage.getItem("selectedTheme") || "dark");
 if (scrollTopBtn) scrollTopBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-// INITIAL RUN
+// INITIAL RUN ON LOAD
 renderMaterials();
 loadQuizQuestion();

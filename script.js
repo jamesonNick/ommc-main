@@ -11,7 +11,7 @@ const teamOrgData = {
       { role: "Senior Pricing Analyst", name: "Joana Marie Dino", level: "level-sr-analyst" },
       { role: "Senior Pricing Analyst", name: "Armida Astrero", level: "level-sr-analyst" },
         { role: "Pricing Analyst", name: "Janea Rhainezzle De Jesus", level: "level-analyst" },
-      { role: "Pricing Analyst & Maintainance Manager", name: "Neil Russel Paragas", level: "level-analyst" },
+      { role: "Pricing Analyst & Maintenance Manager", name: "Neil Russel Paragas", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Leonila Nika Jaud", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Charles Joshua Agrava ", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Roxanne Joy Guevarra ", level: "level-analyst" },
@@ -20,7 +20,7 @@ const teamOrgData = {
       { role: "Pricing Analyst", name: "Rayven Girado", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Clark John Yodico", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Ezraquel Laconsay", level: "level-analyst" },
-      { role: "Pricing Analyst & Assistant Maintainance", name: "Llewen Brylle Getuaban", level: "level-analyst" }
+      { role: "Pricing Analyst & Assistant Maintenance", name: "Llewen Brylle Getuaban", level: "level-analyst" }
     ]
   },
   west: {

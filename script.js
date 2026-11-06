@@ -10,9 +10,9 @@ const teamOrgData = {
       { role: "Senior Pricing Analyst", name: "Kimberly Dela Cruz", level: "level-sr-analyst" },
       { role: "Senior Pricing Analyst", name: "Joana Marie Dino", level: "level-sr-analyst" },
       { role: "Senior Pricing Analyst", name: "Armida Astrero", level: "level-sr-analyst" },
-      { role: "Senior Pricing Analyst", name: "Vann Heinrick Amparo", level: "level-sr-analyst" },
-      { role: "Pricing Analyst", name: "Kyle Denise Manaig", level: "level-analyst" },
-      { role: "Pricing Analyst", name: "Annafeir Gacita", level: "level-analyst" },
+        { role: "Pricing Analyst", name: "Janea Rhainezzle De Jesus", level: "level-analyst" },
+      { role: "Pricing Analyst & Maintainance Manager", name: "Neil Russel Paragas", level: "level-analyst" },
+      { role: "Pricing Analyst", name: "Leonila Nika Jaud", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Charles Joshua Agrava ", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Roxanne Joy Guevarra ", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Kathlyn Hecole", level: "level-analyst" },
@@ -20,7 +20,7 @@ const teamOrgData = {
       { role: "Pricing Analyst", name: "Rayven Girado", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Clark John Yodico", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Ezraquel Laconsay", level: "level-analyst" },
-      { role: "Pricing Analyst", name: "Llewen Brylle Getuaban", level: "level-analyst" }
+      { role: "Pricing Analyst & Assistant Maintainance", name: "Llewen Brylle Getuaban", level: "level-analyst" }
     ]
   },
   west: {
@@ -34,7 +34,7 @@ const teamOrgData = {
       { role: "Senior Pricing Analyst", name: "Guia Tamio", level: "level-sr-analyst" },
       { role: "Pricing Analyst", name: "Rhoda May Garcia", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Cristina Tanala", level: "level-analyst" },
-      { role: "Pricing Analyst", name: "Leonila Nika Jaud", level: "level-analyst" },
+      { role: "Pricing Analyst", name: "Annafeir Gacita", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Jervhiny Lumagui, ", level: "level-analyst" },
       { role: "Pricing Analyst", name: "Jeny Babe Gallardo", level: "level-analyst" }
     ]
@@ -66,7 +66,7 @@ const teamOrgData = {
       { role: "Manager", name: "Florianne Sanchez", level: "level-manager" },
       { role: "Assistant Manager", name: "Jan Lemuel Serrano", level: "level-ass-mgr" },
       { role: "Assistant Supervisor", name: "Grace Dalanon", level: "level-ass-sup" },
-      { role: "Pricing Analyst", name: "Thea Marie Barcelos", level: "level-analyst" }
+      { role: "Pricing Analyst", name: "Zakiya Agnetha Fabi", level: "level-analyst" }
     ]
   },
   giff: {
@@ -76,8 +76,8 @@ const teamOrgData = {
       { role: "Assistant Manager", name: "Jan Lemuel Serrano", level: "level-ass-mgr" },
       { role: "Supervisor", name: "Carla Borja", level: "level-sup" },
       { role: "Pricing Analyst", name: "Cate Delapa", level: "level-analyst" },
-      { role: "Pricing Analyst", name: "Rhadge Christine Valdez", level: "level-analyst" },
-      { role: "Pricing Analyst", name: "Neil Russel Paragas", level: "level-analyst" }
+      { role: "Pricing Analyst", name: "Rhadge Christine Valdez", level: "level-analyst" }
+     
     ]
   }
 };
